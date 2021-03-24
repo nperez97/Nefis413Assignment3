@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -8,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Nefis413Assignment3.Models;
 
 namespace Nefis413Assignment3
 {
@@ -24,6 +26,14 @@ namespace Nefis413Assignment3
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddDbContext<MovieDbContext>(options =>
+            {
+                //go into configuration and set connectionstring key to BookStoreConnection, the name of the connection. Will have info for how we will connect
+
+                options.UseSqlite(Configuration.GetConnectionString("MovieCollectionConnection"));
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +62,7 @@ namespace Nefis413Assignment3
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
         }
     }
 }

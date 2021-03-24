@@ -8,6 +8,11 @@ namespace Nefis413Assignment3.Models
 {
     public class AddMovie
     {
+
+        [Key]
+        [Required]
+        public int MovieId { get; set; }
+
         [Required]
         public String Category { get; set; }
 
